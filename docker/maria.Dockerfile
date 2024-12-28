@@ -27,7 +27,7 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
     mariadb -e "FLUSH PRIVILEGES;" && \
     # Sort of a hack to make sure the database is ready before continuing
-    mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
+    #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
 
 # Node.js
 RUN npm ci

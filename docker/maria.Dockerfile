@@ -10,10 +10,10 @@ COPY . .
 ENV NODE_ENV=production
 
 #Set MariaDB
-#ENV MARIADB_ROOT_PASSWORD=root_password \
-#    MARIADB_DATABASE=modbot \
-#    MARIADB_USER=modbot \
-#    MARIADB_PASSWORD=password
+ENV MARIADB_ROOT_PASSWORD=root_password \
+    MARIADB_DATABASE=modbot \
+    MARIADB_USER=modbot \
+    MARIADB_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network
 
 RUN apk add --update --no-cache mariadb mariadb-client
 
@@ -21,11 +21,11 @@ RUN apk add --update --no-cache mariadb mariadb-client
 #    chmod 777 /run/mysqld && \
 RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadbd-safe --datadir='/var/lib/mysql' & \
-    sleep 10 && \
-    mariadb -e "CREATE DATABASE modbot;" && \
-    mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
-    mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
-    mariadb -e "FLUSH PRIVILEGES;"
+    sleep 10
+    #mariadb -e "CREATE DATABASE modbot;" && \
+    #mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
+    #mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
+    #mariadb -e "FLUSH PRIVILEGES;"
     # Sort of a hack to make sure the database is ready before continuing
     #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
 

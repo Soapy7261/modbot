@@ -20,11 +20,8 @@ ENV NODE_ENV=production \
     MODBOT_DATABASE_HOST=localhost \
     MODBOT_DATABASE_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
     MODBOT_AUTH_TOKEN=SELF_TEST
-RUN apk add --update --no-cache mariadb mariadb-client
-
-#RUN mkdir -p /run/mysqld /var/lib/mysql && \
-#    chmod 777 /run/mysqld && \
-RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
+RUN apk add --update --no-cache mariadb mariadb-client && \
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 3 && \
     #mariadb -e "CREATE DATABASE modbot;" && \
@@ -34,7 +31,7 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     # Sort of a hack to make sure the database is ready before continuing
     #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
     # Node.js
-    RUN npm ci && \
+    npm ci && \
     # Self test
     chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1 && \

@@ -45,6 +45,8 @@ COPY ./docker/test.sh /test.sh
 # Self-test
 RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
-    rm /test.sh
+    rm /test.sh && \
+    # Clean up some extra files
+    rm -rf /app/docker
 
 CMD [ "/bin/ash", "/entrypoint.sh"]

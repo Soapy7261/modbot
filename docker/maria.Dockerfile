@@ -25,8 +25,9 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mysql -e "CREATE DATABASE modbot;" && \
     mysql -e "CREATE USER 'modbot'@'%' IDENTIFIED BY 'password';" && \
     mysql -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'%';" && \
-    mysql -e "FLUSH PRIVILEGES;" && \
-    mysql -u modbot -p password -h localhost modbot || exit 1
+    mysql -e "FLUSH PRIVILEGES;" 
+    #&& \
+    #mysql -u modbot -p password -h localhost modbot || exit 1
 # Node.js
 RUN npm ci
 

@@ -1,9 +1,0 @@
-{
-    "authToken": "Thisisatesttoken",
-    "database": {
-        "host": "localhost",
-        "user": "modbot",
-        "password": "mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network",
-        "database": "modbot"
-    }
-  }

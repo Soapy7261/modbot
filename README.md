@@ -61,13 +61,20 @@ In both cases you will need a [MySQL](https://dev.mysql.com/downloads/mysql/)/[M
 5. Follow the instructions for the installation method you want to use
 
 #### Docker (Base)
+This image does not include a database, you will need to provide a database host and password as environment variables.
+
 Requirements: [Docker](https://docs.docker.com/get-docker/)
 ```bash 
 docker run -e MODBOT_AUTH_TOKEN="<discord-auth-token>" -e MODBOT_DATABASE_HOST="<database-host>" -e MODBOT_DATABASE_PASSWORD="<database-password>" ghcr.io/aternosorg/modbot
 ```
 
-#### Docker (Maria)
-This image includes a MariaDB database built-in. This is designed as a easier to use solution, and only requires a 
+#### Docker (Maria, not recommended)
+This image includes a MariaDB database built-in. This is designed as a easier to use solution, and only requires a discord bot token, although not recommended for production use.
+
+Requirements: [Docker](https://docs.docker.com/get-docker/)
+```bash
+docker run -e MODBOT_AUTH_TOKEN="<discord-auth-token>" ghcr.io/aternosorg/modbot:mariadb
+```
 
 #### Direct Installation
 Requirements: [Node.js](https://nodejs.org/en/download/) (v20+), a [MySQL](https://dev.mysql.com/downloads/mysql/)/[MariaDB](https://mariadb.org/download) database

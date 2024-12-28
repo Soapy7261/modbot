@@ -10,6 +10,7 @@ import {retry} from '../util/util.js';
 import config from './Config.js';
 import GuildWrapper from '../discord/GuildWrapper.js';
 import MessageDeleteEmbed from '../embeds/MessageDeleteEmbed.js';
+import { exit } from 'process';
 
 /**
  * @import {Message} from 'discord.js';
@@ -60,6 +61,9 @@ export class Bot {
     }
 
     async start(){
+        if (config.data.authToken === "SELF_TEST") {
+            exit(0); // exit with success code, not really ideal but works.
+        }
         await this.#client.login(config.data.authToken);
     }
 

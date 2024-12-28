@@ -39,7 +39,7 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/test.sh /test.sh
 
 # Test
-COPY ./docker/test.config.json /app/config.json
+#COPY ./docker/test.config.json /app/config.json
 RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
     rm /test.sh && \

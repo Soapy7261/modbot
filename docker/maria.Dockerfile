@@ -25,9 +25,9 @@ RUN mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 10 && \
     mysql -e "CREATE DATABASE modbot;" && \
     mysql -e "CREATE USER 'modbot'@'%' IDENTIFIED BY 'password';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'%';" && \
-    mysql -e "FLUSH PRIVILEGES;"
-
+    mysql -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'localhost'%';" && \
+    mysql -e "FLUSH PRIVILEGES;" && \
+    mysql -u modbot -p password -h localhost modbot || exit 1
 # Node.js
 RUN npm ci
 

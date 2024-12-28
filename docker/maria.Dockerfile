@@ -10,26 +10,27 @@ COPY docker/entrypoint.sh /entrypoint.sh
 
 ENV NODE_ENV=production \
     # MariaDB environment variables
-    MARIADB_ROOT_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
-    MARIADB_DATABASE=modbot \
-    MARIADB_USER=modbot \
-    MARIADB_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
+    #MARIADB_ROOT_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
+    #MARIADB_DATABASE=modbot \
+    #MARIADB_USER=modbot \
+    #MARIADB_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
     # Modbot environment variables
     MODBOT_COMMIT_HASH=$COMMIT_HASH \
     MODBOT_USE_ENV=1 \
     MODBOT_DATABASE_HOST=localhost \
     MODBOT_DATABASE_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
     MODBOT_AUTH_TOKEN=SELF_TEST
+
 RUN apk add --update --no-cache mariadb mariadb-client && \
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 3 && \
-    #mariadb -e "CREATE DATABASE modbot;" && \
-    #mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
-    #mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
-    #mariadb -e "FLUSH PRIVILEGES;"
+    mariadb -e "CREATE DATABASE modbot;" && \
+    mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
+    mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
+    mariadb -e "FLUSH PRIVILEGES;"
     # Sort of a hack to make sure the database is ready before continuing
-    #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
+    mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
     # Node.js
     npm ci && \
     # Self test

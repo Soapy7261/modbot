@@ -4,7 +4,7 @@ ARG COMMIT_HASH
 
 # Set up files
 WORKDIR /app
-COPY ./../* .
+COPY ./../ .
 
 # Install dependencies
 ENV NODE_ENV=production
@@ -22,7 +22,7 @@ RUN mkdir -p /run/mysqld /var/lib/mysql && \
     mariadb-install-db --user=root --datadir=/var/lib/mysql
 
 # Node.js
-RUN npm ci
+RUN ls && pwd && npm ci
 
 # Environment
 ENV MODBOT_COMMIT_HASH=$COMMIT_HASH

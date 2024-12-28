@@ -34,6 +34,8 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -P 3306 -e "SELECT VERSION();" --verbose || exit 1 && \
     # Node.js
     npm ci && \
+    # Stop MariaDB first
+    mariadb -e "SHUTDOWN;" && \
     # Self test
     chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1 && \

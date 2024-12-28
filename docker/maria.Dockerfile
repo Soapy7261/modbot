@@ -22,7 +22,7 @@ ENV NODE_ENV=production \
     MODBOT_AUTH_TOKEN=SELF_TEST
 
 RUN apk add --update --no-cache mariadb mariadb-client && \
-    mariadb-install-db --user=root --datadir=/var/lib/mysql && \
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 5 && \
     # Set up the database

@@ -10,16 +10,23 @@ COPY . .
 ENV NODE_ENV=production
 
 #Set MariaDB
-ENV MARIADB_ROOT_PASSWORD=root_password \
-    MARIADB_DATABASE=modbot \
-    MARIADB_USER=modbot \
-    MARIADB_PASSWORD=password
+#ENV MARIADB_ROOT_PASSWORD=root_password \
+#    MARIADB_DATABASE=modbot \
+#    MARIADB_USER=modbot \
+#    MARIADB_PASSWORD=password
 
-RUN apk add --update --no-cache mariadb
+RUN apk add --update --no-cache mariadb mariadb-client
 
-RUN mkdir -p /run/mysqld /var/lib/mysql && \
-    chmod 777 /run/mysqld && \
-    mariadb-install-db --user=root --datadir=/var/lib/mysql
+#RUN mkdir -p /run/mysqld /var/lib/mysql && \
+#    chmod 777 /run/mysqld && \
+RUN  mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+
+RUN mysqld_safe --datadir='/var/lib/mysql' & \
+    sleep 10 && \
+    mysql -e "CREATE DATABASE modbot;" && \
+    mysql -e "CREATE USER 'modbot'@'%' IDENTIFIED BY 'password';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'%';" && \
+    mysql -e "FLUSH PRIVILEGES;"
 
 # Node.js
 RUN npm ci

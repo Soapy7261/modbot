@@ -35,7 +35,8 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     # Node.js
     npm ci && \
     # Stop the database
-    systemctl stop mysqld && \
+    mariadb -e "SHUTDOWN;" && \
+    sleep 5 && \
     # Self test
     chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1 && \

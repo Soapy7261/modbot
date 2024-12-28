@@ -7,10 +7,10 @@ WORKDIR /app
 COPY . .
 COPY docker/entrypoint.sh /entrypoint.sh
 # Install dependencies
-ENV NODE_ENV=production
 
-#Set MariaDB
-ENV MARIADB_ROOT_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
+ENV NODE_ENV=production \
+    # MariaDB environment variables
+    MARIADB_ROOT_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
     MARIADB_DATABASE=modbot \
     MARIADB_USER=modbot \
     MARIADB_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \

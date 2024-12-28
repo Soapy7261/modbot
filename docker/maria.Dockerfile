@@ -23,7 +23,7 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 10 && \
     mariadb -e "CREATE DATABASE modbot;" && \
-    mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'password';" && \
+    mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
     mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
     mariadb -e "FLUSH PRIVILEGES;" 
     #&& \
@@ -40,7 +40,7 @@ COPY ./docker/test.sh /test.sh
 
 # Test
 COPY ./docker/test.config.json /app/config.json
-RUN ls && pwd && \
+RUN ls && pwd && cat /app/config.json && \
     chmod +x /test.sh && \
     /test.sh || exit 1 && \
     rm /test.sh && \

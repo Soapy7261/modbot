@@ -3,7 +3,7 @@
     "database": {
         "host": "localhost",
         "user": "modbot",
-        "password": "password",
+        "password": "mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network",
         "database": "modbot"
     }
   }

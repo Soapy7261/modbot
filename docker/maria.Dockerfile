@@ -10,10 +10,10 @@ COPY . .
 ENV NODE_ENV=production
 
 #Set MariaDB
-ENV MYSQL_ROOT_PASSWORD=password \
-    MYSQL_DATABASE=modbot \
-    MYSQL_USER=modbot \
-    MYSQL_PASSWORD=password
+ENV MARIADB_ROOT_PASSWORD=root_password \
+    MARIADB_DATABASE=modbot \
+    MARIADB_USER=modbot \
+    MARIADB_PASSWORD=password
 
 RUN apk add --update --no-cache mariadb
 

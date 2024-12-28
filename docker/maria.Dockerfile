@@ -21,7 +21,7 @@ RUN apk add --update --no-cache mariadb mariadb-client
 #    chmod 777 /run/mysqld && \
 RUN  mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-RUN mysqld_safe --datadir='/var/lib/mysql' & \
+RUN mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 10 && \
     mysql -e "CREATE DATABASE modbot;" && \
     mysql -e "CREATE USER 'modbot'@'%' IDENTIFIED BY 'password';" && \

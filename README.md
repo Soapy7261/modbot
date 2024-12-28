@@ -60,11 +60,14 @@ In both cases you will need a [MySQL](https://dev.mysql.com/downloads/mysql/)/[M
    https://discord.com/oauth2/authorize?client_id=ID&scope=bot%20applications.commands&permissions=1099780074646 and open the link
 5. Follow the instructions for the installation method you want to use
 
-#### Docker
+#### Docker (Base)
 Requirements: [Docker](https://docs.docker.com/get-docker/)
 ```bash 
 docker run -e MODBOT_AUTH_TOKEN="<discord-auth-token>" -e MODBOT_DATABASE_HOST="<database-host>" -e MODBOT_DATABASE_PASSWORD="<database-password>" ghcr.io/aternosorg/modbot
 ```
+
+#### Docker (Maria)
+This image includes a MariaDB database built-in. This is designed as a easier to use solution, and only requires a 
 
 #### Direct Installation
 Requirements: [Node.js](https://nodejs.org/en/download/) (v20+), a [MySQL](https://dev.mysql.com/downloads/mysql/)/[MariaDB](https://mariadb.org/download) database

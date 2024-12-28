@@ -33,18 +33,19 @@ RUN npm ci
 
 # Environment
 ENV MODBOT_COMMIT_HASH=$COMMIT_HASH
-ENV MODBOT_USE_ENV=1
+ENV MODBOT_USE_ENV=1 \
+    MODBOT_DATABASE_HOST=localhost \
+    MODBOT_DATABASE_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
 
 COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/test.sh /test.sh
 
 # Test
-COPY ./docker/test.config.json /app/config.json
-RUN ls && pwd && cat /app/config.json && \
-    chmod +x /test.sh && \
+#COPY ./docker/test.config.json /app/config.json
+RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
     rm /test.sh && \
-    rm /app/config.json
+    #rm /app/config.json
 
 # Start
 

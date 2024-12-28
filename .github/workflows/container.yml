@@ -48,8 +48,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./docker
-          file: ./docker/${{ matrix.tag }}.Dockerfile
+          context: .
+          file: /docker/${{ matrix.tag }}.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

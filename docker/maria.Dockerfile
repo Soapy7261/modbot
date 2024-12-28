@@ -22,7 +22,7 @@ RUN mkdir -p /run/mysqld /var/lib/mysql && \
     mariadb-install-db --user=root --datadir=/var/lib/mysql
 
 # Node.js
-RUN ls && pwd && npm ci
+RUN npm ci
 
 # Environment
 ENV MODBOT_COMMIT_HASH=$COMMIT_HASH
@@ -32,9 +32,11 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/test.sh /test.sh
 
 # Test
+COPY ./docker/test.config.json /app/config.json
 RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
-    rm /test.sh
+    rm /test.sh && \
+    rm /app/config.json
 
 # Start
 

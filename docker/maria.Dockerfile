@@ -45,7 +45,7 @@ COPY ./docker/test.sh /test.sh
 #COPY ./docker/test.config.json /app/config.json
 RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
-    rm /test.sh && \
+    rm /test.sh
     #rm /app/config.json
 
 # Start

@@ -19,15 +19,14 @@ RUN apk add --update --no-cache mariadb mariadb-client
 
 #RUN mkdir -p /run/mysqld /var/lib/mysql && \
 #    chmod 777 /run/mysqld && \
-RUN  mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-
-RUN mariadbd-safe --datadir='/var/lib/mysql' & \
+RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
+    mariadbd-safe --datadir='/var/lib/mysql' & \
     sleep 10 && \
-    mariadb -e "CREATE DATABASE modbot;" && \
-    mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'password';" && \
-    mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
-    mariadb -e "FLUSH PRIVILEGES;" && \
-    mariadb -u modbot -p password -h localhost modbot || exit 1
+    mysql -e "CREATE DATABASE modbot;" && \
+    mysql -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'password';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
+    mysql -e "FLUSH PRIVILEGES;" && \
+    mysql -u modbot -p password -h localhost modbot || exit 1
 # Node.js
 RUN npm ci
 

@@ -5,7 +5,7 @@ ARG COMMIT_HASH
 # Set up files
 WORKDIR /app
 COPY . .
-COPY docker/entrypoint.sh /entrypoint.sh
+COPY /docker/entrypoint.sh /entrypoint.sh
 # Install dependencies
 
 ENV NODE_ENV=production \

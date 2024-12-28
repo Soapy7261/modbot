@@ -32,8 +32,9 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/test.sh /test.sh
 
 # Test
-RUN /test.sh || exit 1 \
-    && rm /test.sh
+RUN chmod +x /test.sh && \
+    /test.sh || exit 1 && \
+    rm /test.sh
 
 # Start
 

@@ -62,6 +62,7 @@ export class Bot {
 
     async start(){
         if (config.data.authToken === "SELF_TEST") {
+            console.log('Self test passed, exiting.');
             exit(0); // exit with success code, not really ideal but works.
         }
         await this.#client.login(config.data.authToken);

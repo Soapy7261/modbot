@@ -14,7 +14,13 @@ async function start() {
     await logger.debug('Loading settings');
     await config.load();
     await logger.info('Connecting to database');
-    await database.connect();
+    try {
+        await database.connect();
+    }
+    catch (error) {
+        await logger.critical('Failed to connect to database, if you are setting this up for the first time, please read the self hosting guide! https://github.com/aternosorg/modbot?tab=readme-ov-file#self-hosting\nFull error:', error);
+        process.exit(1);
+    }
     await logger.info('Creating database tables');
     await database.createTables();
     await database.runMigrations();

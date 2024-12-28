@@ -49,7 +49,7 @@ For security issues please refer to the [SECURITY.md](./SECURITY.md).
 
 ### Self Hosting
 If you want to host the bot yourself you can use our pre-built docker image or install it directly.
-In both cases you will need a [MySQL](https://dev.mysql.com/downloads/mysql/) database and a 
+In both cases you will need a [MySQL](https://dev.mysql.com/downloads/mysql/)/[MariaDB](https://mariadb.org/download/) database and a 
 [Discord application](https://discord.com/developers/applications/):
 
 1. Create a [Discord application](https://discord.com/developers/applications/) and enable the SERVER MEMBERS intent.
@@ -67,7 +67,7 @@ docker run -e MODBOT_AUTH_TOKEN="<discord-auth-token>" -e MODBOT_DATABASE_HOST="
 ```
 
 #### Direct Installation
-Requirements: [Node.js](https://nodejs.org/en/download/) (v20+), a [MySQL](https://dev.mysql.com/downloads/mysql/) database
+Requirements: [Node.js](https://nodejs.org/en/download/) (v20+), a [MySQL](https://dev.mysql.com/downloads/mysql/)/[MariaDB](https://mariadb.org/download) database
 1. Download the code and run `npm ci`
 2. Run `npm start` to start the bot
 

@@ -1,2 +1,2 @@
 #!/bin/ash
-mariadbd --datadir=/var/lib/mysql --skip-networking=0 --socket=/run/mysqld/mysqld.sock & npm start
+mariadbd --user=root --datadir=/var/lib/mysql --skip-networking=0 --socket=/run/mysqld/mysqld.sock & npm start

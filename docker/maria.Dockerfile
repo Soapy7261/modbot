@@ -26,14 +26,15 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql && \
     mariadb -e "CREATE USER 'modbot'@'localhost' IDENTIFIED BY 'mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network';" && \
     mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
     mariadb -e "FLUSH PRIVILEGES;" 
-    #&& \
-    #mysql -u modbot -p password -h localhost modbot || exit 1
+    # Sort of a hack to make sure the database is ready before continuing
+    mysql -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -e "SELECT VERSION();" || exit 1
+
 # Node.js
 RUN npm ci
 
 # Environment
-ENV MODBOT_COMMIT_HASH=$COMMIT_HASH
-ENV MODBOT_USE_ENV=1 \
+ENV MODBOT_COMMIT_HASH=$COMMIT_HASH \
+    MODBOT_USE_ENV=1 \
     MODBOT_DATABASE_HOST=localhost \
     MODBOT_DATABASE_PASSWORD=mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network \
     MODBOT_AUTH_TOKEN=SELF_TEST
@@ -41,13 +42,9 @@ ENV MODBOT_USE_ENV=1 \
 COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY ./docker/test.sh /test.sh
 
-# Test
-#COPY ./docker/test.config.json /app/config.json
+# Self-test
 RUN chmod +x /test.sh && \
     /test.sh || exit 1 && \
     rm /test.sh
-    #rm /app/config.json
-
-# Start
 
 CMD [ "/bin/ash", "/entrypoint.sh"]

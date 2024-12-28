@@ -31,9 +31,7 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     mariadb -e "GRANT ALL PRIVILEGES ON modbot.* TO 'modbot'@'localhost';" && \
     mariadb -e "FLUSH PRIVILEGES;" && \
     # Sort of a hack to make sure the database is ready before continuing, but it also segfaults because, of course!
-    #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -P 3306 -e "SELECT VERSION();" || exit 1 && \
-    # This is a different self test, but actually works without segfaults
-    telnet 127.0.0.1 3306 || exit 1 && \
+    mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -P 3306 -e "SELECT VERSION();" --verbose || exit 1 && \
     # Node.js
     npm ci && \
     # Self test

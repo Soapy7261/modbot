@@ -1,7 +1,7 @@
 {
     "authToken": "Thisisatesttoken",
     "database": {
-        "host": "127.0.0.1",
+        "host": "localhost",
         "user": "modbot",
         "password": "password",
         "database": "modbot"

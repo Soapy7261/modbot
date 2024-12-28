@@ -33,11 +33,9 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     # Sort of a hack to make sure the database is ready before continuing, but it also segfaults because, I don't know.
     #mariadb -u modbot -p mariadb_password_mariadb_is_setup_to_ignore_requests_outside_of_docker_network -h localhost -P 3306 -e "SELECT VERSION();" --verbose || exit 1 && \
     # Node.js
-    npm ci && \
-    # Stop MariaDB first
-    mariadb -e "SHUTDOWN;" && \
-    # Self test
-    chmod +x /app/docker/test.sh && \
+    npm ci
+# Self test, I can remove this extra layer but if i do it says a process already exists, sooooooooo yeah
+RUN chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1 && \
     # Clean up the extra files
     rm -rf /app/docker

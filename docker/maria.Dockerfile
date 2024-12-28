@@ -10,7 +10,7 @@ COPY . .
 ENV NODE_ENV=production
 
 #Set MariaDB
-ENV MYSQL_ROOT_PASSWORD=root_password \
+ENV MYSQL_ROOT_PASSWORD=password \
     MYSQL_DATABASE=modbot \
     MYSQL_USER=modbot \
     MYSQL_PASSWORD=password

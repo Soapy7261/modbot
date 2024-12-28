@@ -4,7 +4,7 @@ ARG COMMIT_HASH
 
 # Set up files
 WORKDIR /app
-COPY / .
+COPY . .
 
 # Install dependencies
 ENV NODE_ENV=production
@@ -28,8 +28,8 @@ RUN ls && pwd && npm ci
 ENV MODBOT_COMMIT_HASH=$COMMIT_HASH
 ENV MODBOT_USE_ENV=1
 
-COPY ./entrypoint.sh /entrypoint.sh
-COPY ./test.sh /test.sh
+COPY ./docker/entrypoint.sh /entrypoint.sh
+COPY ./docker/test.sh /test.sh
 
 # Test
 RUN chmod +x /test.sh && \

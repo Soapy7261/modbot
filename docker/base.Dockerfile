@@ -4,7 +4,7 @@ ARG COMMIT_HASH
 
 # Set up files
 WORKDIR /app
-COPY ./../ .
+COPY . .
 
 # Install dependencies
 ENV NODE_ENV=production

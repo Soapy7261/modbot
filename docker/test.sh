@@ -7,4 +7,3 @@ if [ $exit_status -ne 0 ]; then
   echo "Failed self test"
   exit $exit_status
 fi
-mariadb -e "SHUTDOWN;" && sleep 2

@@ -41,6 +41,7 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1 && \
     # Clean up the extra files
-    rm -rf /app/docker
+    rm -rf /app/docker && \
+    apk del mariadb mariadb-client
 
 CMD [ "/bin/ash", "/entrypoint.sh" ]

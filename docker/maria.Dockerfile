@@ -38,12 +38,13 @@ RUN apk add --update --no-cache mariadb mariadb-client && \
     mariadb -e "SHUTDOWN;" && \
     sleep 5 && \
     # Self test
-    chmod +x /app/docker/test.sh && \
-    /app/docker/test.sh || exit 1 && \
-    # Clean up the extra files
-    rm -rf /app/docker && \
     rm -rf /var/lib/mysql/* && \
     chmod +x /app/docker/test.sh && \
     /app/docker/test.sh || exit 1
+    # Clean up the extra files
+    #rm -rf /app/docker && \
+    #rm -rf /var/lib/mysql/* && \
+    #chmod +x /app/docker/test.sh && \
+    #/app/docker/test.sh || exit 1
 
 CMD [ "/bin/ash", "/entrypoint.sh" ]

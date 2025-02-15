@@ -1,3 +1,4 @@
+import logger from '../bot/Logger.js';
 import config from '../bot/Config.js';
 import {formatEmoji} from 'discord.js';
 
@@ -52,6 +53,11 @@ export function formatNumber(number, name) {
  * @returns {?import('discord.js').APIMessageComponentEmoji}
  */
 export function componentEmojiIfExists(configKey, fallback = null) {
+    if (configKey === "123456789012345678") {
+        await logger.notice('You have set an emoji ID to 123456789012345678. This likely means you copied and pasted the example config without changing the config entries properly. Please change them all!');
+        await logger.debug('Config key: ${configKey}');
+        return {name: fallback};
+    }
     const emoji = config.data.emoji[configKey];
     if (emoji) {
         return {id: emoji};
